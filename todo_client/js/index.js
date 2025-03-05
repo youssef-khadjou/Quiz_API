@@ -65,6 +65,26 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
+    function deleteAll() {
+        if (confirm("Voulez-vous vraiment supprimer TOUS les questionnaires ?")) {
+            fetch("http://127.0.0.1:5000/questionnaires/delete-all", {
+                method: "DELETE"
+            })
+            .then(reponse => {
+                if (!reponse.ok) {
+                    throw new Error("Erreur lors de la suppression de tous les questionnaires");
+                }
+                listeTaches.innerHTML = "<p>Tous les questionnaires ont été supprimés.</p>";
+                tacheActuelle.innerHTML = "";
+                alert("Tous les questionnaires ont été supprimés avec succès.");
+            })
+            .catch(erreur => {
+                console.error("Erreur :", erreur);
+                alert("Impossible de supprimer tous les questionnaires");
+            });
+        }
+    }
+
     function afficherDetails(questionnaire) {
         tacheActuelle.innerHTML = `
             <p><strong>Nom :</strong> <input type="text" id="modifierNom" value="${questionnaire.name}" style="width: 310px;"></p>
@@ -75,11 +95,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 <ul id="questionsUl"></ul>
                 <h3>Ajouter une question :</h3>
                 <input type="text" id="nouvelleQuestion" placeholder="Nouvelle question" style="width: 310px;">
-                <select id="typeQuestion">
-                    <option value="text">Texte</option>
-                    <option value="choixMultiple">Choix Multiple</option>
-                    <option value="case">Case à cocher</option>
-                </select>
                 <button id="ajouterQuestion">Ajouter</button>
             </div>
         `;
@@ -108,8 +123,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     questions.forEach(question => {
                         const elementQuestion = document.createElement("li");
                         elementQuestion.innerHTML = `
-                            ${question.title} (Type: ${question.questionType})
-                            <button onclick="modifierQuestion(${idQuestionnaire}, ${question.id})">Modifier</button>
+                            ${question.title}
+                            <button onclick="modifierQuestion(${idQuestionnaire}, ${question.id}, '${question.title}')">Modifier</button>
                             <button onclick="supprimerQuestion(${idQuestionnaire}, ${question.id})">Supprimer</button>
                         `;
                         questionsUl.appendChild(elementQuestion);
@@ -125,7 +140,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function ajouterQuestion(idQuestionnaire) {
         const nouvelleQuestion = document.getElementById("nouvelleQuestion").value;
-        const typeQuestion = document.getElementById("typeQuestion").value;
         
         if (!nouvelleQuestion.trim()) {
             alert("Veuillez saisir une question");
@@ -137,7 +151,7 @@ document.addEventListener("DOMContentLoaded", function () {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ 
                 title: nouvelleQuestion,
-                questionType: typeQuestion,
+                questionType: "text",
                 url: ""
             })
         })
@@ -151,17 +165,16 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    function modifierQuestion(idQuestionnaire, idQuestion) {
-        const nouveauTitre = prompt("Modifier la question :");
-        const nouveauType = prompt("Modifier le type de question (text/choixMultiple/case) :");
+    function modifierQuestion(idQuestionnaire, idQuestion, ancienTitre) {
+        const nouveauTitre = prompt("Modifier la question :", ancienTitre);
         
-        if (nouveauTitre !== null && nouveauType !== null) {
+        if (nouveauTitre !== null) {
             fetch(`http://127.0.0.1:5000/questionnaires/${idQuestionnaire}/questions/${idQuestion}`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ 
                     title: nouveauTitre,
-                    questionType: nouveauType 
+                    questionType: "text"
                 })
             })
             .then(() => chargerQuestions(idQuestionnaire))
@@ -209,18 +222,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-
-    function deleteAll(id){
-
-        fetch(`http://127.0.0.1:5000/questionnaires/${id}`, {
-            method: "DELETE",
-        })
-        .then((reponse ) => {
-            actualiserListeQuestionnaires();
-        })
-        .catch(erreur => {
-            console.error("Erreur :", erreur);
-            alert("Impossible de mettre à jour le questionnaire");
-        });
-    }
+    window.modifierQuestion = modifierQuestion;
+    window.supprimerQuestion = supprimerQuestion;
 });
