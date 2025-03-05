@@ -1,0 +1,87 @@
+[
+    {
+      "id": 1,
+      "name": "Questionnaire 1",
+      "url": "http://127.0.0.1:5000/questionnaires/1/questions",
+      "questions": [
+        {
+          "id": 1,
+          "title": "Quelle est votre couleur préférée ?",
+          "questionType": "text",
+          "questionnaire_id": 1,
+          "url": "http://127.0.0.1:5000/questionnaires"
+        },
+        {
+          "id": 2,
+          "title": "Aimez-vous les sports ?",
+          "questionType": "radio",
+          "questionnaire_id": 1, 
+          "url": "http://127.0.0.1:5000/questionnaires"
+        },
+        {
+          "id": 3,
+          "title": "Quel est votre âge ?",
+          "questionType": "number",
+          "questionnaire_id": 1, 
+          "url": "http://127.0.0.1:5000/questionnaires"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Questionnaire 2",
+      "url": "http://127.0.0.1:5000/questionnaires/2/questions",
+      "questions": [
+        {
+          "id": 4,
+          "title": "Quel est votre plat préféré ?",
+          "questionType": "text",
+          "questionnaire_id": 2, 
+          "url": "http://127.0.0.1:5000/questionnaires"
+        },
+        {
+          "id": 5,
+          "title": "Pratiquez-vous la musique ?",
+          "questionType": "radio",
+          "questionnaire_id": 2, 
+          "url": "http://127.0.0.1:5000/questionnaires"
+        },
+        {
+          "id": 6,
+          "title": "Combien d'heures passez-vous sur Internet par jour ?",
+          "questionType": "number",
+          "questionnaire_id": 2, 
+          "url": "http://127.0.0.1:5000/questionnaires"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Questionnaire 3",
+      "url": "http://127.0.0.1:5000/questionnaires/3/questions",
+      "questions": [
+        {
+          "id": 7,
+          "title": "Avez-vous un animal de compagnie ?",
+          "questionType": "radio",
+          "questionnaire_id": 3, 
+          "url": "http://127.0.0.1:5000/questionnaires"
+        },
+        {
+          "id": 8,
+          "title": "Quel est votre passe-temps préféré ?",
+          "questionType": "text",
+          "questionnaire_id": 3, 
+          "url": "http://127.0.0.1:5000/questionnaires"
+        },
+        {
+          "id": 9,
+          "title": "Quel est votre film préféré ?",
+          "questionType": "text",
+          "questionnaire_id": 3, 
+          "url": "http://127.0.0.1:5000/questionnaires"
+        }
+      ]
+    }
+  ]
+  
