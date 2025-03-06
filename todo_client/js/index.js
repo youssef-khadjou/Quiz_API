@@ -1,16 +1,20 @@
 document.addEventListener("DOMContentLoaded", function () {
+    // Récupération des éléments du DOM
     const boutonActualiser = document.getElementById("button");
     const listeTaches = document.getElementById("taches");
     const tacheActuelle = document.getElementById("currenttask");
     const supprimerQuestionnaire = document.getElementById("delete");
     const add = document.getElementById("add");
 
+    // Initialisation
     actualiserListeQuestionnaires();
 
+    // Événements
     boutonActualiser.addEventListener("click", actualiserListeQuestionnaires);
     supprimerQuestionnaire.addEventListener("click", deleteAll);
     add.addEventListener("click", ajouterQuestionnaire);
 
+    // Gestion des questionnaires
     function actualiserListeQuestionnaires() {
         fetch("http://127.0.0.1:5000/questionnaires")
             .then(reponse => {
@@ -66,6 +70,7 @@ document.addEventListener("DOMContentLoaded", function () {
             alert("Impossible de supprimer le questionnaire");
         });
     }
+
     function deleteAll() {
         if (confirm("Voulez-vous vraiment supprimer TOUS les questionnaires ?")) {
             fetch("http://127.0.0.1:5000/questionnaires", {
@@ -116,7 +121,8 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-
+    // Gestion des questions
+    
     function afficherDetails(questionnaire) {
         tacheActuelle.innerHTML = `
             <p><strong>Nom :</strong> <input type="text" id="modifierNom" value="${questionnaire.name}" style="width: 310px;"></p>
