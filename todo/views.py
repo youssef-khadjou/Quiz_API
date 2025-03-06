@@ -42,7 +42,7 @@ def remove_one_questionnaire(questionnaire_id):
 def add_questionnaire():
     if request.json is None or 'name' not in request.json or 'url' not in request.json:
         abort(400)
-    new_questionnaire = Questionnaire(name = request.json['name'])
+    new_questionnaire = Questionnaire(name = request.json['name'], url = request.json['url'])
     db.session.add(new_questionnaire)
     db.session.commit()
     return jsonify(new_questionnaire.to_json()), 201
