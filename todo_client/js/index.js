@@ -3,11 +3,13 @@ document.addEventListener("DOMContentLoaded", function () {
     const listeTaches = document.getElementById("taches");
     const tacheActuelle = document.getElementById("currenttask");
     const supprimerQuestionnaire = document.getElementById("delete");
+    const add = document.getElementById("add");
 
     actualiserListeQuestionnaires();
 
     boutonActualiser.addEventListener("click", actualiserListeQuestionnaires);
     supprimerQuestionnaire.addEventListener("click", deleteAll);
+    add.addEventListener("click", ajouterQuestionnaire);
 
     function actualiserListeQuestionnaires() {
         fetch("http://127.0.0.1:5000/questionnaires")
@@ -64,10 +66,9 @@ document.addEventListener("DOMContentLoaded", function () {
             alert("Impossible de supprimer le questionnaire");
         });
     }
-
     function deleteAll() {
         if (confirm("Voulez-vous vraiment supprimer TOUS les questionnaires ?")) {
-            fetch("http://127.0.0.1:5000/questionnaires/delete-all", {
+            fetch("http://127.0.0.1:5000/questionnaires", {
                 method: "DELETE"
             })
             .then(reponse => {
@@ -84,6 +85,37 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         }
     }
+
+    function ajouterQuestionnaire() {
+        const nomQuestionnaire = prompt("Entrez le nom du questionnaire :");
+        const urlQuestionnaire = prompt("Entrez l'URL du questionnaire :");
+
+        if (!nomQuestionnaire || !urlQuestionnaire) {
+            alert("Le nom et l'URL du questionnaire sont requis !");
+            return;
+        }
+
+        fetch("http://127.0.0.1:5000/questionnaires", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ name: nomQuestionnaire, url: urlQuestionnaire })
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Erreur lors de l'ajout du questionnaire");
+            }
+            return response.json();
+        })
+        .then(() => {
+            alert("Questionnaire ajouté avec succès !");
+            actualiserListeQuestionnaires();
+        })
+        .catch(erreur => {
+            console.error("Erreur lors de l'ajout du questionnaire :", erreur);
+            alert("Impossible d'ajouter le questionnaire");
+        });
+    }
+
 
     function afficherDetails(questionnaire) {
         tacheActuelle.innerHTML = `
