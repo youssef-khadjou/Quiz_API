@@ -1,19 +1,16 @@
 # Projet de Gestion de Questionnaires avec Flask et JavaScript
 
+## Auteurs
+- **Youssef Khadjou 23A**
+
+---
+
 ## Sommaire
-- [Projet de Gestion de Questionnaires](#projet-de-gestion-de-questionnaires-avec-flask-et-javascript)
-- [Auteurs](#auteurs)
 - [Description du Projet](#description-du-projet)
 - [Installation et Configuration](#installation-et-configuration)
 - [Commandes Utiles](#commandes-utiles)
 - [Fonctionnalités](#fonctionnalités)
 - [API Endpoints](#api-endpoints)
-- [Interface Utilisateur](#interface-utilisateur)
-
----
-
-## Auteurs
-- **Youssef Khadjou**
 
 ---
 
