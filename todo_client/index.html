@@ -1,38 +1,41 @@
 <!DOCTYPE html>
 <html lang="fr">
-  <head>
+<head>
     <meta charset="utf-8"/>
-    <title>Vos quizz</title>
+    <title>Vos Quizz</title>
+    <link rel="stylesheet" href="css/flex.css"/>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script type="module" src="js/index.js"></script>
+</head>
+<body>
+    <div id="app">
+        <header>
+            <h1>Quizz</h1>
+        </header>
 
-<link rel="stylesheet" href="css/flex.css"/>
-<script src="js/index.js"></script>
-  </head>
-  <body>
- <header>
- <h1>Quizz</h1>
- </header>
+        <div id="main">
+            <nav>
+                <h2>Mes Quizz</h2>
+                <button @click="fetchQuizzes">Récupérer les quizz</button>
+                <ul>
+                    <li v-for="quiz in quizList" :key="quiz.id">
+                        <a href="#" @click="selectQuiz(quiz)">{{ quiz.name }}</a>
+                        <button @click="deleteQuiz(quiz.id)">Supprimer</button>
+                    </li>
+                </ul>
+            </nav>
 
- <div id='main'>
-
-    <nav id="nav1">
-      <h2>Mes Quizz</h2>
-        <input id="button" type="button" value="Recuperer les quizz" />
-        <div id="taches">
+            <article>
+                <h2>Ajouter un nouveau quizz</h2>
+                <input v-model="newQuizName" placeholder="Nom">
+                <input v-model="newQuizURL" placeholder="URL">
+                <button @click="addQuiz">Ajouter</button>
+            </article>
         </div>
-    </nav>
 
-    <article>
-      <h2>Editeur de Quizz</h2>
-      <section id="tools">
-        <img id="add" src="img/new.png" alt="Nouvelle quizz"/>
-        <img id="delete" src="img/delete.png" alt="delete"/>
-      </section>
-      <section id="currenttask"> </section>
-    </article>
- </div>
- <footer>
- <h4>©Département Informatique ⚛ IUT d'Orléans</h4>
- </footer>
-
-  </body>
+        <footer>
+            <h4>©Département Informatique - IUT d'Orléans</h4>
+        </footer>
+    </div>
+</body>
 </html>
